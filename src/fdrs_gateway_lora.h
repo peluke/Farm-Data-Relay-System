@@ -77,7 +77,7 @@ const uint8_t lora_size = 256 / sizeof(DataReading);
 #ifdef CUSTOM_SPI
 //#ifdef ESP32
 //SPIClass LORA_SPI(SPI);
-RADIOLIB_MODULE radio = new Module(LORA_SS, LORA_DIO, LORA_RST, -1, SPI);
+RADIOLIB_MODULE radio = new Module(LORA_SS, LORA_DIO, LORA_RST, -1, SPI1);
 //#endif // ESP32
 #else
 RADIOLIB_MODULE radio = new Module(LORA_SS, LORA_DIO, LORA_RST, -1);
@@ -262,10 +262,10 @@ void begin_lora()
 {
 #ifdef CUSTOM_SPI
 //#ifdef ESP32
-  SPI.setRX(LORA_SPI_MISO);
-  SPI.setTX(LORA_SPI_MOSI);
-  SPI.setSCK(LORA_SPI_SCK);
-  SPI.begin();
+  SPI1.setRX(LORA_SPI_MISO);
+  SPI1.setTX(LORA_SPI_MOSI);
+  SPI1.setSCK(LORA_SPI_SCK);
+  SPI1.begin();
 
 
 //#endif // ESP32
