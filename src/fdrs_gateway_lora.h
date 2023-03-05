@@ -75,10 +75,10 @@
 const uint8_t lora_size = 256 / sizeof(DataReading);
 
 #ifdef CUSTOM_SPI
-#ifdef ESP32
-SPIClass LORA_SPI(HSPI);
-RADIOLIB_MODULE radio = new Module(LORA_SS, LORA_DIO, LORA_RST, -1, LORA_SPI);
-#endif // ESP32
+//#ifdef ESP32
+//SPIClass LORA_SPI(SPI);
+RADIOLIB_MODULE radio = new Module(LORA_SS, LORA_DIO, LORA_RST, -1, SPI);
+//#endif // ESP32
 #else
 RADIOLIB_MODULE radio = new Module(LORA_SS, LORA_DIO, LORA_RST, -1);
 #endif // CUSTOM_SPI
@@ -261,9 +261,14 @@ void printLoraPacket(uint8_t *p, int size)
 void begin_lora()
 {
 #ifdef CUSTOM_SPI
-#ifdef ESP32
-  LORA_SPI.begin(LORA_SPI_SCK, LORA_SPI_MISO, LORA_SPI_MOSI);
-#endif // ESP32
+//#ifdef ESP32
+  SPI.setRX(LORA_SPI_MISO);
+  SPI.setTX(LORA_SPI_MOSI);
+  SPI.setSCK(LORA_SPI_SCK);
+  SPI.begin();
+
+
+//#endif // ESP32
 #else
 #endif // CUSTOM_SPI
 #ifdef USE_SX126X
